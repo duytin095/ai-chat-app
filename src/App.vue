@@ -5,18 +5,28 @@
       <strong>{{ msg.role }}:</strong> {{ msg.content }}
     </div>
 
-    <input v-model="input" @keyup.enter="send" placeholder="Type a message..." class="chat-input" />
+    <input
+      v-model="input"
+      @keyup.enter="send"
+      placeholder="Type a message..."
+      class="chat-input"
+    />
     <button @click="send">Send</button>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
-const input = ref("");
-const messages = ref([]);
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+};
 
-async function send() {
+const input = ref<string>("");
+const messages = ref<Message[]>([]);
+
+async function send(): Promise<void> {
   if (!input.value.trim()) return;
 
   // add user message
@@ -29,7 +39,8 @@ async function send() {
   });
 
   const data = await res.json();
-  const reply = data.choices?.[0]?.message?.content || "[No reply]";
+  const reply: string =
+    data.choices?.[0]?.message?.content ?? "[No reply]";
 
   // add assistant reply
   messages.value.push({ role: "assistant", content: reply });
@@ -44,11 +55,9 @@ async function send() {
   margin: 0 auto;
   font-family: sans-serif;
 }
-
 .msg {
   margin: 0.5em 0;
 }
-
 .chat-input {
   width: 70%;
   padding: 0.5em;
