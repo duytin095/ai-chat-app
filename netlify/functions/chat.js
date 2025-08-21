@@ -1,7 +1,5 @@
 // netlify/functions/chat.js
 
-import fetch from 'node-fetch'
-
 export async function handler(event, context) {
   try {
     const { message } = JSON.parse(event.body)
