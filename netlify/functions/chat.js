@@ -10,8 +10,7 @@ export async function handler(event, context) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        Authorization: `Bearer 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`,
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         model: 'gpt-4o-mini', // or whichever
