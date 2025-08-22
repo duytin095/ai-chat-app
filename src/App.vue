@@ -1,9 +1,12 @@
 <template>
   <div class="chat-demo">
     <h2>AI Chat Demo</h2>
-    <div v-for="(msg, i) in messages" :key="i" class="msg">
-      <strong>{{ msg.role }}:</strong> {{ msg.content }}
-    </div>
+    <div
+      v-for="(msg, i) in messages"
+      :key="i"
+      class="msg"
+      v-html="renderMarkdown(`${msg.role}: ${msg.content}`)"
+    />
 
     <input
       v-model="input"
@@ -16,7 +19,9 @@
 </template>
 
 <script setup lang="ts">
+import { marked } from "marked";
 import { ref } from "vue";
+
 
 type Message = {
   role: "user" | "assistant";
@@ -25,6 +30,10 @@ type Message = {
 
 const input = ref<string>("");
 const messages = ref<Message[]>([]);
+
+function renderMarkdown(text: string): string {
+  return marked.parse(text) as string;
+}
 
 async function send(): Promise<void> {
   if (!input.value.trim()) return;
