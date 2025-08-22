@@ -39,8 +39,12 @@ async function send(): Promise<void> {
   });
 
   const data = await res.json();
-  const reply: string =
-    data.choices?.[0]?.message?.content ?? "[No reply]";
+  // for gemini
+  const reply: string = data.reply ?? "[No reply]";
+
+  //for gpt
+  // const reply: string =
+  //   data.choices?.[0]?.message?.content ?? "[No reply]";
 
   // add assistant reply
   messages.value.push({ role: "assistant", content: reply });
