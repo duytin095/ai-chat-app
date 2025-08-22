@@ -38,11 +38,9 @@
 <h2>📂 Project Structure</h2>
 
 <pre>
-├── netlify.toml                  # Netlify config (build & function directory)
 ├── netlify/functions/chat.js     # Serverless endpoint to Gemini
 ├── src/
-│   ├── components/ChatDemo.vue   # Chat UI component
-│   └── utils/markdown.ts         # Markdown rendering helper
+│   ├── App.vue                   # Chat UI
 ├── .env                          # Local environment variables
 └── README.md                     # This file
 </pre>
